@@ -1,1 +1,26 @@
-// 1 hour
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hunting Github</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".button").click(function(){
+                $.get("https://api.github.com/users/samuelki", displayName)
+                // Notice that displayName is a function that takes in 1 parameter (this is the data that comes back from the API)
+                function displayName(data){
+                    var name = data.name;
+                    document.getElementById("name").innerHTML = name;
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <button class="button">CLICK ME</button>
+    <h1 id="name"></h1>
+</body>
+</html>
