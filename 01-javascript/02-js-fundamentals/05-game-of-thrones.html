@@ -7,22 +7,42 @@
     <title>Game of Thrones</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/got.css">
+
+    <script>
+    $(document).ready(function(){
+
+        $("img").click(function(){
+            api = "https://anapioficeandfire.com/api/houses/"+ $(this).attr('id');
+    
+            $.get(api, function(data){
+                console.log(data);
+                console.log(data.name);
+                console.log(data.words);
+                console.log(data.titles);
+                const name = `<h5>Name: ${data.name}</h5>`;
+                const words = `<h5>Words: ${data.words}</h5>`;
+                const titles = `<h5>Titles: ${data.titles}</h5>`;
+              
+                $(".details").empty().append(name, words, titles);
+            });
+        })
+    });
+    </script>
 
 </head>
 <body>
     <div class="container">
-
-        <div class="row">
-            <div class="three columns"><img src="../assets/stark.jpg" alt="stark"></div>
-            <div class="three columns"><img src="/assets/targaryen.jpg" alt="targaryen"></div>
-            <div class="three columns"><img src="/assets/lannister.jpg" alt="lannister"></div>
-            <div class="three columns"><img src="/assets/baratheon.jpg" alt="baratheon"></div>
-        </div>
+        <img src="assets/stark.jpg" id="362" alt="stark">
+        <img src="assets/targaryen.jpg" id="378" alt="targaryen">
+        <img src="assets/lannister.jpg" id="229" alt="lannister">
+        <img src="assets/baratheon.png" id="17" alt="baratheon">
 
         <h3>House Details</h4>
-        <h5 class="name"></h5>
-        <h5 class="words"></h5>
-        <p class="titles"></p>
+        <div class="details">
+
+        </div>
     </div>
 </body>
 </html>
