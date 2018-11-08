@@ -1,1 +1,47 @@
-<!-- 2 hours -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trivia</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    <script>
+    $(document).ready(function(){
+
+        $.get("https://opentdb.com/api.php?amount=10&category=21&difficulty=medium&type=multiple", function(data){
+            console.log(data)
+            let info = data.results;
+            let category = `<h3>Category: ${info[0].category}</h3>`;
+            let difficulty = `<h3>Difficulty: ${info[0].difficulty}</h3>`
+            $(".category").append(category);
+            $(".difficulty").append(difficulty)
+
+            for(let index in info){
+                let number = parseInt(index) + 1
+                let question = `<h5>${number}. ${info[index].question}</h5>`;
+                $(".questions").append(question);
+                let answers = [info[index].correct_answer, ...info[index].incorrect_answers];
+
+                for(var content in answers){
+                    let radio = `<input type="radio" name="${answers[content]}" value="${answers[content]}">${answers[content]}<br>`
+                    $(".questions").append(radio);
+                };
+            };
+        });
+        
+    });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Trivia Night</h1>
+        <div class="category"></div>
+        <div class="difficulty"></div>
+        <p class="questions"></table>
+    </div>
+</body>
+</html>
