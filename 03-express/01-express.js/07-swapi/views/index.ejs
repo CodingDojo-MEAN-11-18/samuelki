@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Star Wars Wiki</title>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+  $(document).ready(function() {
+    $('#peopleBtn').click(function() {
+      $.get('/people', function(data) {
+        $('#content').empty();
+        $('#allBtn').empty();
+        $('#allBtn').append(`<button>Get all ${data.count} people</button>`);
+        const results = data.results;
+        for (const result of results) {
+          $('#content').append(`<li>${result.name}</li>`);
+        }
+      }, 'json');
+    });
+    $('#planetsBtn').click(function() {
+      $.get('/planets', function(data) {
+        $('#content').empty();
+        $('#allBtn').empty();
+        $('#allBtn').append(`<button>Get all ${data.count} planets</button>`);
+        const results = data.results;
+        for (const result of results) {
+          $('#content').append(`<li>${result.name}</li>`);
+        }
+      }, 'json');
+    });
+    $('#previousBtn').click(function() {
+      $.get('/previous', function(data) {
+        $('#content').empty();
+        const results = data.results;
+        for (const result of results) {
+          $('#content').append(`<li>${result.name}</li>`);
+        }
+      }, 'json');
+    });
+    $('#nextBtn').click(function() {
+      $.get('/next', function(data) {
+        $('#content').empty();
+        const results = data.results;
+        for (const result of results) {
+          $('#content').append(`<li>${result.name}</li>`);
+        }
+      }, 'json');
+    });
+    $('#allBtn').click(function() {
+      $.get('/all', function(data) {
+        $('#content').empty();
+        const results = data.results;        
+        for (const result of results) {
+          $('#content').append(`<li>${result.name}</li>`);
+        }
+      }, 'json');
+    });
+
+  });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>Star Wars Wiki</h1>
+    <button id="peopleBtn">People</button>
+    <button id="planetsBtn">Planets</button>
+    <ul id="content"></ul>
+    <button id="previousBtn">Previous</button>
+    <span id="allBtn"></span>
+    <button id="nextBtn">Next</button>
+  </div>
+</body>
+</html>
