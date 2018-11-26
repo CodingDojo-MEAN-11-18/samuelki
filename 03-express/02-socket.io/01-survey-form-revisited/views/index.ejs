@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Socket Survey</title>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src = "https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+  <script>
+  $(document).ready(function() {
+    let socket = io.connect();
+    $('#submit').click(function() {
+      socket.emit('posting_form', {
+        name: $('#name').val(),
+        location: $('#location').val(),
+        language: $('#language').val(),
+        comment: $('#comment').val()
+      });
+    });
+    socket.on('updated_message', function(data) {
+      console.log(data.response);
+      $('#message').text(`${data.response}`);
+    });
+    socket.on('random_number', function(data) {
+      $('#number').text(`Your lucky number emitted by the server is ${data.response}`);
+    });
+  });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <p id="message"></p>
+    <p id="number"></p>
+    <form>
+      <label for="name">Name:</label>
+      <input type="text" name="name" id="name">
+      <label for="location">Dojo Location:</label>
+      <select name="location" id="location">
+        <option value="Seattle">Seattle</option>
+        <option value="Online">Online</option>
+        <option value="Los Angeles">Los Angeles</option>
+        <option value="Chicago">Chicago</option>
+        <option value="New York">New York</option>
+      </select>
+      <label for="language">Language:</label>
+      <select name="language" id="language">
+        <option value="Python">Python</option>
+        <option value="JavaScript">JavaScript</option>
+        <option value="Java">Java</option>
+      </select>
+      <label for="comment">Comment:</label>
+      <textarea name="comment" id="comment" cols="30" rows="7"></textarea>
+    </form>
+    <button id="submit">Submit</button>
+  </div>
+</body>
+</html>
