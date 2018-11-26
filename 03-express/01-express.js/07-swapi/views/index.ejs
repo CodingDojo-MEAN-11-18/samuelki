@@ -10,8 +10,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
   $(document).ready(function() {
-    let page;
+    let page = 1;
     $('#peopleBtn').click(function() {
+      page = 1;
       $.get('/people', function(data) {
         $('#content').empty();
         $('#allBtn').empty();
@@ -20,10 +21,10 @@
         for (const result of results) {
           $('#content').append(`<li>${result.name}</li>`);
         }
-        page = 1;
       }, 'json');
     });
     $('#planetsBtn').click(function() {
+      page = 1;
       $.get('/planets', function(data) {
         $('#content').empty();
         $('#allBtn').empty();
@@ -32,12 +33,14 @@
         for (const result of results) {
           $('#content').append(`<li>${result.name}</li>`);
         }
-        page = 1;
       }, 'json');
     });
     $('#previousBtn').click(function() {
-      page --;
-      $.get('/next?page=' + page, function(data) {
+      page--;
+      $.get('/previous?page=' + page, function(data) {
+        if (data.previous === null) {
+          page = 1;
+        };
         $('#content').empty();
         const results = data.results;
         for (const result of results) {
@@ -46,8 +49,11 @@
       }, 'json');
     });
     $('#nextBtn').click(function() {
-      page ++;
+      page++;
       $.get('/next?page=' + page, function(data) {
+        if (data.next === null) {
+          page = 0;
+        };
         $('#content').empty();
         const results = data.results;
         for (const result of results) {
@@ -58,13 +64,12 @@
     $('#allBtn').click(function() {
       $.get('/all', function(data) {
         $('#content').empty();
-        const results = data.results;        
+        const results = data.results;
         for (const result of results) {
-          $('#content').append(`<li>${result.name}</li>`);
+          $('#content').append(`<li>${result.name}</li>`)
         }
       }, 'json');
     });
-
   });
   </script>
 </head>
