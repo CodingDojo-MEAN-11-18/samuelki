@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+
+  <script>
+  $(document).ready(function() {
+    var socket = io.connect();
+    
+    let current_user;
+
+    let new_user = function() {
+      let name = prompt("What is your name?");
+      socket.emit('chatroom', {user: name});
+    }
+
+    new_user();
+
+    socket.on('all_users', function(data) {
+      $('#error').html(data.error);
+      new_user();
+    });
+    
+    socket.on('load_messages', function(data) {
+      $('#error').empty();
+      current_user = data.current_user;
+      let messages = data.messages;
+      let message_board = "";
+      
+      for (let i = 0; i < messages.length; i++) {
+        $('#messageBoard').append(`<li>${messages[i].name}: ${messages[i].message}</li>`);
+      };
+    });
+    
+    $('#newMessage').submit(function(e) {
+      e.preventDefault;
+      socket.emit('new_message', {message: $('#message').val(), user: current_user});
+      return false;
+    });
+
+    socket.on('post_message', function(data) {
+      $('#messageBoard').append(`<li>${data.user}: ${data.newMessage}</li>`)
+    });
+
+  });
+
+  </script>
+
+  <title>Group Chat</title>
+</head>
+<body>
+  <div class="container">
+    <div id="error"></div>
+    <h1><u>Conversation Board</u></h1>
+    <ul style="list-style: none"id="messageBoard"></ul>
+    <form id="newMessage">
+      <label for="message"></label>
+      <input type="text" name="message" id="message" placeholder="Enter your message here">
+      <input type="submit" value="Send">
+    </form>
+  </div>
+</body>
+</html>
