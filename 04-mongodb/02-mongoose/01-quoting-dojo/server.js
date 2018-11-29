@@ -30,7 +30,7 @@ mongoose.connect('mongodb://localhost/quoting_dojo');
 const QuoteSchema = new mongoose.Schema({
   name: {
     type: String,
-    require: [true, 'Name required']
+    required: [true, 'Name required']
   },
   quote: {
     type: String,

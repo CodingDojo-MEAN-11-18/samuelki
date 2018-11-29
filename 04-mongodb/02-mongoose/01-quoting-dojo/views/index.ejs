@@ -11,8 +11,8 @@
 </head>
 <body class="container">
   <h1>Welcome to Quoting Dojo</h1>
-  <% if (messages.error) { %>
-    <% for (let error of messages.error) { %>
+  <% if (messages.errors) { %>
+    <% for (let error of messages.errors) { %>
       <p style="color: red"><%= error %></p>
     <% } %>
   <% } %>
