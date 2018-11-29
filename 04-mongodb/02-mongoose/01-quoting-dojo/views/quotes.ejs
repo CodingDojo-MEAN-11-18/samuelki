@@ -7,23 +7,15 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
-  <title>Quoting Dojo</title>
+  <title>Quotes</title>
 </head>
 <body class="container">
-  <h1>Welcome to Quoting Dojo</h1>
-  <% if (messages.error) { %>
-    <% for (let error of messages.error) { %>
-      <p style="color: red"><%= error %></p>
+    <h1>Here are the awesome quotes!</h1>
+    <% for (quote of quotes) { %>
+      <p style="color: gray">"<%= quote.quote %>"</p>
+      <p style="text-indent: 99px; color: blue;">-<%= quote.name %> at <%= quote.createdAt %></p>
     <% } %>
-  <% } %>
-  <form action="/quotes" method="post">
-    <label for="name">Name:</label>
-    <input type="text" name="name">
-    <label for="quote">Quote:</label>
-    <input type="text" name="quote">
-    <br>
-    <input type="submit" value="ADD MY QUOTE!">
-  </form>
-  <a href="/quotes"><button>SKIP TO QUOTES!</button></a>
+    <a href="/"><button>ADD QUOTE</button></a>
+    <a href="/clear"><button>CLEAR QUOTES</button></a>
 </body>
 </html>
