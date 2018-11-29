@@ -60,15 +60,26 @@ app.post('/quotes', function(req, res) {
     name: req.body.name,
     quote: req.body.quote
   });
-  quote.save()
-  .then(savedQuote => {
-    console.log(savedQuote);
-    res.redirect('/quotes');
+  quote.save(function(error) {
+    if (error) {
+      for (var key in error.errors) {
+        req.flash('errors', error.errors[key].message);
+      }
+      res.redirect('/');
+    } else {
+      res.redirect('/quotes');
+    }
   })
-  .catch(error => {
-    Object.keys(error.errors).map(key => req.flash('errors', error.errors[key].message));
-    res.redirect('/');
-  });
+
+  // quote.save()
+  // .then(savedQuote => {
+  //   console.log(savedQuote);
+  //   res.redirect('/quotes');
+  // })
+  // .catch(error => {
+  //   Object.keys(error.errors).map(key => req.flash('errors', error.errors[key].message));
+  //   res.redirect('/');
+  // });
 });
 
 app.get('/clear', function(req, res) {
