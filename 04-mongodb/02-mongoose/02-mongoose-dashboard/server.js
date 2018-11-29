@@ -28,12 +28,8 @@ const Otter = mongoose.model('Otter', OtterSchema);
 
 app.get('/', function(req, res) {
   Otter.find({}, function(err, otters) {
-    if (err) { 
-      console.log(err);
-      res.redirect('/');
-    } else {
-      res.render('index', { otters: otters });
-    }
+    if (err) { console.log(err); }
+    res.render('index', { otters: otters });
   });
 });
 
