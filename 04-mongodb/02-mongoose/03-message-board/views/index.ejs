@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <style>
+    p {
+      font-size: 18px;
+    }
+    .comment_form {
+      font-size: 12px;
+      margin-left: 50px;
+    }
+  </style>
+  <title>Message Board</title>
+</head>
+<body class="container">
+  <h1>The Dojo Message Board</h1>
+  <% if (messages.errors) { %>
+    <% for (let error of messages.errors) { %>
+      <p style="color: red"><%= error %></p>
+    <% } %>
+  <% } %>
+
+  <form action="/message" method="post">
+    <label for="name">Name:</label>
+    <input type="text" name="name" id="">
+    <label for="message">Message:</label>
+    <textarea name="message" id="message" cols="30" class="u-full-width"></textarea>
+    <br>
+    <input type="submit" value="Post message">
+  </form>
+
+  <div class="message_board">
+    <% for (message of info) { %>
+      <p>Name: <%= message.name %></p>
+      <p>Message: <%= message.message %></p>
+      <% for (comment of message.comments) { %>
+        <p style="text-indent: 50px; font-size: 12px;">Name: <%= comment.name %></p>
+        <p style="text-indent: 50px; font-size: 12px;">Comment: <%= comment.comment %></p>
+      <% } %>
+
+      <div class="comment_form">
+        <form action="/comment" method="post">
+          <label for="name">Name:</label>
+          <input type="text" name="name">
+          <label for="comment">Comment:</label>
+          <textarea name="comment" cols="30" class="u-full-width"></textarea>
+          <input type="hidden" name="id" value="<%= message.id %>">
+          <br>
+          <input type="submit" value="Post comment">
+        </form>
+      </div>
+
+    <% } %>
+  </div>
+</body>
+</html>
