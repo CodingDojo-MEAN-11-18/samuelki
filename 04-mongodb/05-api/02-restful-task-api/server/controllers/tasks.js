@@ -18,20 +18,20 @@ module.exports = {
       completed: req.params.completed
     });
     task.save()
-      .then(task => res.json(task))
+      .then(() => res.redirect('/'))
       .catch(error => res.json(error));
   },
   update(req, res) {
-    Task.findById(req.params.id)
-      .then(task => {
-        task.title = req.params.title;
-        task.description = req.params.description;
-        task.completed = req.params.completed;
-      })
+    Task.findOneAndUpdate({_id: req.params.id }, {
+      title: req.params.title,
+      description: req.params.description,
+      completed: req.params.completed,
+    })
+      .then(() => res.redirect('/'))
       .catch(error => res.json(error));
   },
   destroy(req, res) {
-    Task.deleteOne({ id: req.params.id })
+    Task.findOneAndDelete({_id: req.params.id})
       .then(() => res.redirect('/'))
       .catch(error => res.json(error));
   }
