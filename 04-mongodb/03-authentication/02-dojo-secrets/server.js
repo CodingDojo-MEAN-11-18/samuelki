@@ -231,7 +231,7 @@ app.get('/logout', function(req, res) {
   res.redirect('/');
 })
 
-app.get('/secret/destroy/:id', function(req, res) {
+app.get('/secrets/destroy/:id', function(req, res) {
   Secret.remove({ _id:req.params.id })
   .then(secret => {
     console.log(secret, "deleted");
