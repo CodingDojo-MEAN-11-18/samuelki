@@ -14,7 +14,7 @@ app.use(session({
 }));
 app.use('/static', express.static(path.join(__dirname + '/static')));
 
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'client', 'views'));
 app.set('view engine', 'ejs');
 
 require('./server/config/routes')(app);
