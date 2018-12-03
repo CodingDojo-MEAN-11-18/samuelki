@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+  <title>Edit Otter</title>
+</head>
+<body class="container">
+  <a href="/"><button>All Otters</button></a>
+  <h1>Edit Otter</h1>
+  <form action="/otters/<%= otter.id %>" method="post">
+    <label for="name">Name:</label>
+    <input type="text" name="name" value="<%= otter.name %>">
+    <label for="age">Age:</label>
+    <input type="text" name="age" value="<%= otter.age %>">
+    <br>
+    <input type="submit" value="Save Otter">
+  </form>
+</body>
+</html>
