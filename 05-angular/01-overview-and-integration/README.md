@@ -1,3 +1,0 @@
-# Additional Assignments
-
-Hello Angular
