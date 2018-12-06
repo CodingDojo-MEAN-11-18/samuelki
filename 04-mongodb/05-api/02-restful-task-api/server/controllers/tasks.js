@@ -12,13 +12,11 @@ module.exports = {
       .catch(error => res.json(error));
   },
   create(req, res) {
-    const task = new Task({
-      title: req.params.title,
-      description: req.params.description,
-      completed: req.params.completed
-    });
-    task.save()
-      .then(() => res.redirect('/'))
+    Task.create(req.body)
+      .then(task => {
+        console.log(task);
+        res.json({ task });
+      })
       .catch(error => res.json(error));
   },
   update(req, res) {
