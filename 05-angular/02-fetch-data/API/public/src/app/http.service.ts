@@ -8,7 +8,7 @@ export class HttpService {
 
   constructor(private _http: HttpClient) {
     this.getPokemon();
-    this.getAbility();
+    // this.getAbility();
   }
 
   getPokemon() {
@@ -18,16 +18,21 @@ export class HttpService {
       console.log("Bulbasaur's abilities are:")
       for (const ability of data.abilities) {
         console.log(ability.ability.name);
+
+        let getAbility = this._http.get(ability.ability.url);
+        getAbility.subscribe((data: any) => {
+          console.log(`${data.pokemon.length - 1} other pokemon have the ${ability.ability.name} ability!`)
+        });
       }
     });
   }
 
-  getAbility() {
-    let ability = this._http.get('https://pokeapi.co/api/v2/ability/34/');
-    ability.subscribe((data: any) => {
-      console.log(`${data.pokemon.length - 1} other pokemon have the chlorophyll ability`)
-    });
-  }
+  // getAbility() {
+  //   let ability = this._http.get('https://pokeapi.co/api/v2/ability/34/');
+  //   ability.subscribe((data: any) => {
+  //     console.log(`${data.pokemon.length - 1} other pokemon have the chlorophyll ability`)
+  //   });
+  // }
 }
 
 interface PokemonData {
