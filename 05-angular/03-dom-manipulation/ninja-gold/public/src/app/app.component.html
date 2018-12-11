@@ -1,0 +1,17 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>Ninja Gold - Angular Style</h1>
+  <h2>Total Gold: {{ totalGold }}</h2>
+</div>
+<div *ngFor="let location of locations" class="locations">
+  <h3 style="text-align:center">{{ location.name }}</h3>
+  <p>Earn: {{ location.range }} gold</p>
+  <button (click)="onClick(location.name)">{{ location.name }}</button>
+</div>
+
+<div class="activities">
+  <h3>Adventure Log</h3>
+  <p>You earned/lost {{ randomNum }} gold!</p>
+</div>
+
+<router-outlet></router-outlet>
