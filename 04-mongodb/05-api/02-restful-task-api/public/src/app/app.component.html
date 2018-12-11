@@ -3,13 +3,42 @@
   <h1>Restful Tasks API</h1>
 
   <h3>All the Tasks:</h3>
-  <p *ngFor="let tasks of tasks">{{ task.title }} - {{ task.description }}
-  <br>
+  <!-- <p>{{ tasks | json }}</p> -->
+  <p *ngFor="let task of tasks">{{ task.title }} - {{ task.description }}
     <button (click)="showClick(task._id)">Show</button>
     <button (click)="editClick(task._id)">Edit</button>
     <button (click)="deleteClick(task._id)">Delete</button>
   </p>
-  <app-task *ngIf="task" [taskToShow]="task"></app-task>
+  <br>
+  <!-- <app-task *ngIf="task" [taskToShow]="task"></app-task> -->
 </div>
+<section style="display:inline-blcok">
+  <fieldset>
+    <legend>New Task</legend>
+    <form (submit)="onSubmit()">
+      <!-- use the json pipe to see how newTask changes in real time -->
+      <!-- <p> {{ newTask | json }} </p> -->
+      <label for="title">Title: </label>
+      <input type="text" name="title" [(ngModel)]="newTask.title"/>
+      <label for="description">Description:</label>
+      <input type="text" name="description" [(ngModel)]="newTask.description"/>
+      <br>
+      <input type="submit" value="Create"/>
+    </form>
+  </fieldset>
+</section>
+<section *ngIf="changeTask" style="display:inline-block">
+  <fieldset>
+    <legend>Edit Task</legend>
+    <form (submit)="editSubmit(changeTask._id)">
+      <label for="title">Title: </label>
+      <input type="text" name="title" [(ngModel)]="changeTask.title" placeholder="{{ changeTask.title }}"/>
+      <label for="description">Description:</label>
+      <input type="text" name="description" [(ngModel)]="changeTask.description" placeholder="{{ changeTask.title }}"/>
+      <br>
+      <input type="submit" value="Edit">
+    </form>
+  </fieldset>
+</section>
 
 <router-outlet></router-outlet>

@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
 
   constructor(private _httpService: HttpService) {}
   ngOnInit() {
-    this.newTask = {title: "", description: ""}
+    this.newTask = { title: "", description: "" }
     this.getTasksFromService();
   }
   getTasksFromService() {
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
     observable.subscribe(data => {
       console.log("Got our tasks!", data);
       this.tasks = data['tasks'];
-    });
+    })
   }
   showClick(taskID: Number): void {
     console.log('Show button working!', taskID);
@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
   }
   editClick(taskID: Number): void {
     console.log('Edit button working!', taskID);
-    let observable = this._httpService.editTask(taskID);
+    let observable = this._httpService.edit(taskID);
     observable.subscribe(data => {
       console.log(data);
       this.changeTask = data['task'];
@@ -49,5 +49,21 @@ export class AppComponent implements OnInit {
       this.getTasksFromService();
     })
   }
-
+  onSubmit() {
+    console.log('Submitting form');
+    let observable = this._httpService.addTask(this.newTask);
+    observable.subscribe(data => {
+      console.log('Submitted task', data);
+      this.getTasksFromService();
+      this.newTask = { title: "", description: "" }
+    })
+  }
+  editSubmit(taskID: Number) {
+    console.log('Editting form submission');
+    let observable =this._httpService.editTask(taskID, this.changeTask);
+    observable.subscribe(data => {
+      console.log('Edited task', data);
+      this.getTasksFromService();
+    })
+  }
 }
