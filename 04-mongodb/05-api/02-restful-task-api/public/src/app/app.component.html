@@ -3,9 +3,13 @@
   <h1>Restful Tasks API</h1>
 
   <h3>All the Tasks:</h3>
-  <p *ngFor="let tasks of tasks">{{ task.title }} - {{ task.description }}</p>
+  <p *ngFor="let tasks of tasks">{{ task.title }} - {{ task.description }}
   <br>
-  <h3>The third task:</h3>
+    <button (click)="showClick(task._id)">Show</button>
+    <button (click)="editClick(task._id)">Edit</button>
+    <button (click)="deleteClick(task._id)">Delete</button>
+  </p>
+  <app-task *ngIf="task" [taskToShow]="task"></app-task>
 </div>
 
 <router-outlet></router-outlet>
