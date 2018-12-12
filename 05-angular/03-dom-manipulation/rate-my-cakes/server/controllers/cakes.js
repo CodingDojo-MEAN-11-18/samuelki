@@ -12,19 +12,12 @@ module.exports = {
       .catch(error => res.json(error));
   },
   create(req, res) {
+    console.log('Creating cake', req.body);
     Cake.create(req.body)
       .then(cake => {
-        console.log(cake);
+        console.log('Cake created', cake);
         res.json({cake})
       })
       .catch(error => res.json(error));
-  },
-  rate(req, res) {
-    Cake.findById(req.params.id)
-      .then(cake => {
-        cake.rating.push(req.body);
-        cake.save();
-      })
-      .catch(error => res.json(error));
   }
-}
+};

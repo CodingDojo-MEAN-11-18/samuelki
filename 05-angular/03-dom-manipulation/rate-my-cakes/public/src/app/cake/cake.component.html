@@ -1,12 +1,12 @@
 <div class="single-cake-container">
   <div class="show-cake" *ngIf="selectedCake.name">
-    <p>Baked by: {{ selectedCake.name }}</p>
+    <h5>Baked by: {{ selectedCake.name }}</h5>
     <img src="{{ selectedCake.image }}" alt="CAKE">
   </div>
 
-  <p class="rating" *ngFor="let rating of selectedCake.rating">
-    Rating: {{ rating.rating }}
+  <p class="rating" *ngFor="let review of selectedCake.review">
+    Rating: {{ review.rating }}
     <br>
-    Comment: {{ rating.comment }}
+    Comment: {{ review.comment }}
   </p>
 </div>

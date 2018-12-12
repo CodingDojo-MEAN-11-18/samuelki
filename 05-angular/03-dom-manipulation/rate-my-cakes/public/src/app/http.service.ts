@@ -12,13 +12,13 @@ export class HttpService {
   getCakes() {
     return this._http.get('/cakes');
   }
-  getCake(id: Number) {
-    return this._http.get(`/cakes/${id}`);
+  getCake(cakeID: Number) {
+    return this._http.get(`/cakes/${cakeID}`);
   }
   addCake(newCake) {
     return this._http.post('/cakes', newCake);
   }
-  rateCake(id: Number, rating) {
-    return this._http.post(`/cakes/${id}/rate`, rating);
+  addReview(cakeID: Number, newReview) {
+    return this._http.post(`/reviews/${cakeID}`, newReview);
   }
 }

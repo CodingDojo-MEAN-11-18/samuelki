@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from './http.service';
-import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
 
 @Component({
   selector: 'app-root',
@@ -12,12 +11,14 @@ export class AppComponent implements OnInit {
   cakes: [];
   cake: Object;
   newCake: Object;
+  newReview: Object;
 
   constructor(private _httpService: HttpService) {}
 
   ngOnInit() {
-    this.newCake = { name: "", image: "" };
     this.getCakesFromService();
+    this.newCake = { name: "", image: "" };
+    this.newReview ={ rating: Number, comment: "" }
   }
   getCakesFromService() {
     let observable = this._httpService.getCakes();
@@ -26,10 +27,10 @@ export class AppComponent implements OnInit {
       this.cakes = data['cakes'];
     });
   }
-  showCake(id: Number): void {
-    let observable = this._httpService.getCake(id);
+  showCake(cakeID: Number) {
+    let observable = this._httpService.getCake(cakeID);
     observable.subscribe(data => {
-      console.log(data);
+      console.log("Got cake!", data);
       this.cake = data['cake'];
     })
   }
@@ -42,16 +43,13 @@ export class AppComponent implements OnInit {
       this.newCake = { name: "", image: "" };
     })
   }
-  rateCake(id: Number, form) {
-    console.log('Submitting rating form...');
-    let cakeRating = {
-      rating: form.controls['rating']['value'],
-      comment: form.controls['comment']['value']
-    }
-    this._httpService.rateCake(id, cakeRating).subscribe(data => {
-      console.log('Submitted rating!', data);
-      this.getCakesFromService();
+  rateCake(cakeID: Number) {
+    console.log('Submitting review form...');
+    let observable = this._httpService.addReview(cakeID, this.newReview);
+    observable.subscribe(data => {
+      console.log('Submitted review!', data);
+      this.newReview = data['review'];
+      this.newReview = { rating: Number, comment: "" };
     })
   }
-
 }
