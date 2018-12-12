@@ -1,0 +1,58 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<h1 style="text-align: center;">{{ title }}</h1>
+
+<div class="container">
+
+  <div class="create-cake">
+    <h3>Submit a cake to be rated</h3>
+    <form (submit)="createCake()">
+      <label for="name">Baker Name: </label>
+      <input type="text" name="name" [(ngModel)]="newCake.name" class="u-full-width">
+      <br>
+      <label for="image">Image URL: </label>
+      <input type="text" name="image" [(ngModel)]="newCake.image" class="u-full-width">
+      <br>
+      <input type="submit" value="Submit!">
+    </form>
+  </div>
+
+  <div class="cake-list">
+
+    <div *ngFor="let cake of cakes">
+
+      <div class="cake">
+
+        <p>Baked by: {{ cake.name }}</p>
+        <div class="cake-img-container">
+          <img class="cake-img" src="{{ cake.image }}" alt="Baked by: {{ cake.name }}" (click)="showCake(cake._id)">
+        </div>
+
+        <div class="rate-cake">
+          <form #cakeForm='ngForm' (submit)="rateCake(cake._id, cakeForm)">
+            <label for="rating">Select rating:</label>
+            <select name="rating" class="select" ngModel>
+              <option selected="selected" value="5">5</option>
+              <option value="4">4</option>
+              <option value="3">3</option>
+              <option value="2">2</option>
+              <option value="1">1</option>
+            </select>
+            <br>
+            <label for="comment">Add comment:</label>
+            <input type="text" name="comment" ngModel>
+            <br>
+            <input type="submit" value="Rate!">
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <app-cake *ngIf="cake" [selectedCake]="cake"></app-cake>
+
+</div>
+
+<router-outlet></router-outlet>

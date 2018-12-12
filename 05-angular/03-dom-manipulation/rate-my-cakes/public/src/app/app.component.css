@@ -1,0 +1,44 @@
+.create-cake {
+  margin: 10px;
+  vertical-align: top;
+  display: inline-block;
+}
+
+.single-cake {
+  background-color: rgb(220, 220, 220);
+  border: 2px solid gray;
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.cake-list {
+  display: inline-block;
+  width: 500px;
+  height: 400px;
+  overflow-y: scroll;
+  border: 2px solid grey;
+  border-radius: 6px;
+  padding: 10px;
+  margin: 0 0 20px 25px;
+}
+
+.rate-cake {
+  display: inline-block;
+  text-align: left;
+  vertical-align: top;
+  margin-left: 15px;
+}
+
+.cake-img-container {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.cake-img {
+  width: 200px;
+  border: 1px solid rgb(75, 75, 75);
+  border-radius: 6px;
+  text-align: left;
+  vertical-align: top;
+}

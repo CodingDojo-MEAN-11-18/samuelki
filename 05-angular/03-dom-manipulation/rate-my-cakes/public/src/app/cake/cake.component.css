@@ -1,0 +1,24 @@
+.single-cake-container {
+  width: 900px;
+  border: 2px solid grey;
+  border-radius: 6px;
+  margin: 0px 20px;
+  padding: 10px;
+}
+
+.rating {
+  width: 100%;
+  border-bottom: 1px solid rgb(75, 75, 75);
+  margin: 5px;
+}
+
+.rating p {
+  margin: 0px;
+}
+
+.show-cake img {
+  width: 200px;
+  border: 2px solid rgb(75, 75, 75);
+  border-radius: 6px;
+  text-align: left;
+}
