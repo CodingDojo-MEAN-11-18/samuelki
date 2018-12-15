@@ -10,10 +10,10 @@ const CakeSchema = new Schema({
     type: String,
     required: [true, 'Image URL required']
   },
-  review: {
+  reviews: [{
     type: Schema.Types.ObjectId,
     ref: 'Review'
-  }
+  }]
 }, {timestamp: true});
 
 module.exports = mongoose.model('Cake', CakeSchema);

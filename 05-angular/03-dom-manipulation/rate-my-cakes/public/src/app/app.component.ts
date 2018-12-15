@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from './http.service';
+import { NgForm } from '@angular/forms';
+import { Cake, Review } from './models/cake';
 
 @Component({
   selector: 'app-root',
@@ -8,17 +10,18 @@ import { HttpService } from './http.service';
 })
 export class AppComponent implements OnInit {
   title = 'Rate My Cakes';
-  cakes: [];
-  cake: Object;
-  newCake: Object;
-  newReview: Object;
+  newCake: Cake;
+  newReview: Review;
+  cakes: Cake[] = [];
+  cake: Cake;
+  reivew: Review;
 
   constructor(private _httpService: HttpService) {}
 
   ngOnInit() {
     this.getCakesFromService();
-    this.newCake = { name: "", image: "" };
-    this.newReview ={ rating: Number, comment: "" }
+    this.newCake = { name: "", image: "", reviews: [] };
+    this.newReview = { rating: 1, comment: "" }
   }
   getCakesFromService() {
     let observable = this._httpService.getCakes();
@@ -43,13 +46,14 @@ export class AppComponent implements OnInit {
       this.newCake = { name: "", image: "" };
     })
   }
-  rateCake(cakeID: Number) {
-    console.log('Submitting review form...');
-    let observable = this._httpService.addReview(cakeID, this.newReview);
+  rateCake(cake: Cake, form: NgForm, event: Event) {
+    event.preventDefault();
+    console.log('Submitting review form...', cake, form.value);
+    let observable = this._httpService.addReview({...form.value, cake: cake._id});
     observable.subscribe(data => {
       console.log('Submitted review!', data);
       this.newReview = data['review'];
-      this.newReview = { rating: Number, comment: "" };
+      this.newReview = { rating: 1, comment: "" };
     })
   }
 }

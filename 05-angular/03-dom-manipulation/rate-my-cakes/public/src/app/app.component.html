@@ -17,21 +17,19 @@
   </div>
 
   <div class="cake-list">
-
     <div *ngFor="let cake of cakes">
-
       <div class="cake">
 
         <h5>Baked by: {{ cake.name }}</h5>
         <div class="cake-img-container">
-          <img class="cake-img" src="{{ cake.image }}" alt="Baked by: {{ cake.name }}" (click)="showCake(cake._id)">
+          <img class="cake-img" [src]="cake.image" alt="Baked by: {{ cake.name }}" (click)="showCake(cake._id)">
         </div>
 
         <div class="rate-cake" *ngIf="newReview">
-          <form (submit)="rateCake(cake._id)">
+          <form (submit)="rateCake(cake, form, $event)" #form='ngForm'>
             <label for="rating">Select rating:</label>
-            <select name="rating" class="select" [(ngModel)]="newReview.rating">
-              <option value="5" selected>5</option>
+            <select name="rating" class="select" [ngModel]="newReview.rating">
+              <option value="5">5</option>
               <option value="4">4</option>
               <option value="3">3</option>
               <option value="2">2</option>
@@ -39,7 +37,7 @@
             </select>
             <br>
             <label for="comment">Add comment:</label>
-            <input type="text" name="comment" [(ngModel)]="newReview.comment">
+            <input type="text" name="comment" [ngModel]="newReview.comment">
             <br>
             <input type="submit" value="Rate!">
           </form>

@@ -2,13 +2,8 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const ReviewSchema = new Schema({
+  rating: Number,
   comment: String,
-  rating:{
-    type: Number,
-    required: [true, 'Rating required'],
-    minimum: 1,
-    maximum: 5
-  },
   cake: {
     type: Schema.Types.ObjectId,
     ref: 'Cake'

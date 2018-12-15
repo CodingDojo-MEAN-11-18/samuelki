@@ -5,9 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class HttpService {
-  constructor(private _http: HttpClient) {
-    this.getCakes();
-  }
+  constructor(private _http: HttpClient) {}
 
   getCakes() {
     return this._http.get('/cakes');
@@ -18,7 +16,7 @@ export class HttpService {
   addCake(newCake) {
     return this._http.post('/cakes', newCake);
   }
-  addReview(cakeID: Number, newReview) {
-    return this._http.post(`/reviews/${cakeID}`, newReview);
+  addReview(newReview) {
+    return this._http.post(`/reviews/${newReview.cake}`, newReview);
   }
 }
