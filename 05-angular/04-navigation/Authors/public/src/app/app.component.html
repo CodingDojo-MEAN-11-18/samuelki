@@ -1,0 +1,67 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="container">
+  <h1>Favorite Authors</h1>
+
+  <button (click)="addAuthor()" *ngIf="home">Add an author</button>
+
+  <section *ngIf="newAuthor" style="display:inline-block">
+    <h5>Add a new author</h5>
+    <form (submit)="submitAuthor()" #form='ngForm'>
+      <div *ngIf="(name.touched) && name.errors" style="color: red;">
+        <div *ngIf="name.errors.required">Name required</div>
+        <div *ngIf="name.errors.minlength">Name must be at least {{ name.errors.minlength.requiredLength }} characters</div>
+      </div>
+      <label for="name">Name: </label>
+      <input type="text" name="name"
+        [(ngModel)]="newAuthor.name"
+        required
+        #name='ngModel'
+        minlength='3'>
+      <br>
+      <input type="submit" value="Submit">
+      <button (click)="cancelAdd()">Cancel</button>
+    </form>
+
+  </section>
+
+  <section *ngIf="changeAuthor" style="display:inline-block">
+    <h5>Edit this author</h5>
+    <form (submit)="editSubmit(changeAuthor._id)" #form='ngForm'>
+      <div *ngIf="(name.touched) && name.errors" style="color: red;">
+        <div *ngIf="name.errors.required">Name required</div>
+        <div *ngIf="name.errors.minlength">Name must be at least {{ name.errors.minlength.requiredLength }} characters</div>
+      </div>
+      <label for="name">Name: </label>
+      <input type="text" name="name"
+        [(ngModel)]="changeAuthor.name"
+        required
+        #name='ngModel'
+        minlength='3'>
+      <br>
+      <input type="submit" value="Submit">
+      <button (click)="cancelEdit()">Cancel</button>
+    </form>
+  </section>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Author</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let author of authors">
+        <td>{{ author.name }}</td>
+        <td>
+          <button (click)="editClick(author)">Edit</button>
+          <button (click)="deleteClick(author._id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+
+<router-outlet></router-outlet>
