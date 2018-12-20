@@ -1,0 +1,14 @@
+<div>
+  <h2>Create a New Product</h2>
+  <form (submit)="productSubmit()">
+    <label for="title">Title:</label>
+    <input type="text" name="title" [(ngModel)]="newProduct.title">
+    <label for="price">Price:</label>
+    <input type="text" name="price" [(ngModel)]="newProduct.price">
+    <label for="image">Image URL:</label>
+    <input type="text" name="image" [(ngModel)]="newProduct.image">
+    <br>
+    <input type="submit" value="Create">
+    <button (click)="cancelCreate()">Cancel</button>
+  </form>
+</div>
