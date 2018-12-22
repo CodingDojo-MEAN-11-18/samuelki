@@ -1,0 +1,39 @@
+<h1>Authors</h1>
+
+<button [routerLink]="['newauthor']">Add Author</button>
+
+<table>
+  <thead>
+    <th>Author</th>
+    <th>Actions</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let author of authors">
+      <td>{{ author.name }}</td>
+      <td>
+        <button (click)="editClick(author)">Edit</button>
+        <button (click)="deleteClick(author._id)">Delete</button>
+        <button [routerLink]="['quotes', author._id]">View Quotes</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<section *ngIf="author">
+  <h5>Edit this Author</h5>
+  <form (submit)="editSubmit(author._id)" #form='ngForm'>
+    <div *ngIf="(name.touched) && name.errors" style="color: red;">
+      <div *ngIf="name.errors.required">Name required</div>
+      <div *ngIf="name.errors.minlength">Name must be at least {{ name.errors.minlength.requiredLength }} characters</div>
+    </div>
+    <label for="name">Name: </label>
+    <input type="text" name="name"
+      [(ngModel)]="author.name"
+      required
+      #name='ngModel'
+      minlength='3'>
+    <br>
+    <input type="submit" value="Submit">
+    <button (click)="cancelEdit()">Cancel</button>
+  </form>
+</section>

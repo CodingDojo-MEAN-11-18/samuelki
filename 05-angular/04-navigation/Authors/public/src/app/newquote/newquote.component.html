@@ -1,0 +1,20 @@
+<h1>Quote Ranks</h1>
+
+<button [routerLink]="['/authors']">Home</button>
+
+<h5>Provide a quote by {{ author.name }}:</h5>
+<form (submit)="submitQuote()" #form='ngForm'>
+  <div *ngIf="(quote.touched) && quote.errors" style="color: red;">
+    <div *ngIf="quote.errors.required">Quote required</div>
+    <div *ngIf="quote.errors.minlength">Quote must contain at least {{ quote.errors.minlength.requiredLength }} characters</div>
+  </div>
+  <label for="quote">Quote</label>
+  <input type="text" name="quote"
+    [(ngModel)]="quote.quote"
+    required
+    #quote='ngModel'
+    minglength='3'>
+  <br>
+  <input type="submit" value="Submit">
+  <button (click)="cancelQuote()">Cancel</button>
+</form>

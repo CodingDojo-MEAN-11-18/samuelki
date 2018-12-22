@@ -1,10 +1,7 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="container">
-  <h1>Favorite Authors</h1>
 
-  <button (click)="addAuthor()" *ngIf="home">Add an author</button>
-
-  <section *ngIf="newAuthor" style="display:inline-block">
+  <!-- <section *ngIf="newAuthor">
     <h5>Add a new author</h5>
     <form (submit)="submitAuthor()" #form='ngForm'>
       <div *ngIf="(name.touched) && name.errors" style="color: red;">
@@ -21,11 +18,10 @@
       <input type="submit" value="Submit">
       <button (click)="cancelAdd()">Cancel</button>
     </form>
-
   </section>
 
-  <section *ngIf="changeAuthor" style="display:inline-block">
-    <h5>Edit this author</h5>
+  <section *ngIf="changeAuthor">
+    <h5>Edit this Author</h5>
     <form (submit)="editSubmit(changeAuthor._id)" #form='ngForm'>
       <div *ngIf="(name.touched) && name.errors" style="color: red;">
         <div *ngIf="name.errors.required">Name required</div>
@@ -41,9 +37,9 @@
       <input type="submit" value="Submit">
       <button (click)="cancelEdit()">Cancel</button>
     </form>
-  </section>
+  </section> -->
 
-  <table>
+  <!-- <table>
     <thead>
       <th>Author</th>
       <th>Actions</th>
@@ -57,9 +53,9 @@
         </td>
       </tr>
     </tbody>
-  </table>
+  </table> -->
 
+  <router-outlet></router-outlet>
 </div>
 
 
-<router-outlet></router-outlet>

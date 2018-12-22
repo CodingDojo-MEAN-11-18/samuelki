@@ -1,0 +1,18 @@
+<section *ngIf="newAuthor">
+  <h5>Add a new author</h5>
+  <form (submit)="submitAuthor()" #form='ngForm'>
+    <div *ngIf="(name.touched) && name.errors" style="color: red;">
+      <div *ngIf="name.errors.required">Name required</div>
+      <div *ngIf="name.errors.minlength">Name must be at least {{ name.errors.minlength.requiredLength }} characters</div>
+    </div>
+    <label for="name">Name: </label>
+    <input type="text" name="name"
+      [(ngModel)]="newAuthor.name"
+      required
+      #name='ngModel'
+      minlength='3'>
+    <br>
+    <input type="submit" value="Submit">
+    <button (click)="cancelAdd()">Cancel</button>
+  </form>
+</section>
