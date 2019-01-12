@@ -1,0 +1,6 @@
+<p>{{ createdData?.error }}</p>
+<form (submit)="onSubmit()">
+  <label for="content">Note:</label>
+  <input type="text" name="content" [(ngModel)]="note.content" class="u-full-width">
+  <input type="submit" value="Add Note">
+</form>
