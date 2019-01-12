@@ -1,0 +1,8 @@
+<p>{{ error?.error }}</p>
+<form (submit)="onSubmit()">
+  <label for="name">Player Name:</label>
+  <input type="text" name="name" [(ngModel)]="player.name">
+  <label for="position">Preferred Position:</label>
+  <input type="text" name="position" [(ngModel)]="player.position">
+  <input type="submit" value="Add Player">
+</form>

@@ -1,0 +1,18 @@
+<table class="table table-striped">
+  <thead>
+    <td>Player Name</td>
+    <td>Preferred Position</td>
+    <td>Status</td>
+    <td>Actions</td>
+  </thead>
+  <tbody>
+    <tr *ngFor="let player of players">
+      <td>{{ player.name }}</td>
+      <td>{{ player.position }}</td>
+      <td>{{ player.status }}</td>
+      <button (click)="playing(player)">Playing</button>
+      <button (click)="notPlaying(player)">Not Playing</button>
+      <button (click)="undecided(player)">Undecided</button>
+    </tr>
+  </tbody>
+</table>
